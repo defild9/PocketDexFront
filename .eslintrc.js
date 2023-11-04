@@ -23,6 +23,8 @@ module.exports = {
   },
   rules: {
     "react/react-in-jsx-scope": "off",
+    "linebreak-style": "off",
+    "react/prop-types": "off"
   },
   "ignorePatterns": [
     ".eslintrc.js",
