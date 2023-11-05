@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Box, Container, Pagination, Grid, FormControl, InputLabel, Select, MenuItem, TextField,
+  Box, Container, Pagination, Grid, FormControl, InputLabel, Select, MenuItem, TextField, Card,
+  Typography, CardContent, Chip,
 } from '@mui/material';
 import PokemonList from '../../components/PokemonList';
 import getAllPokemons from '../../api/pokemonService';
@@ -11,6 +12,7 @@ function Pokemons() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedTypes, setSelectedTypes] = useState([]);
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -28,8 +30,12 @@ function Pokemons() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const filteredPokemons = pokemons.filter(
-    (pokemon) => pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()),
+    (pokemon) => pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
+  && (selectedTypes.length === 0
+    || selectedTypes.some((selectedType) => pokemon.type.includes(selectedType))
+  ),
   );
+
   const currentPokemons = filteredPokemons.slice(indexOfFirstItem, indexOfLastItem);
 
   const handleChangePage = (event, newPage) => {
@@ -44,6 +50,14 @@ function Pokemons() {
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
     setCurrentPage(1);
+  };
+
+  const handleTypeSelect = (type) => {
+    if (selectedTypes.includes(type)) {
+      setSelectedTypes(selectedTypes.filter((t) => t !== type));
+    } else {
+      setSelectedTypes([...selectedTypes, type]);
+    }
   };
 
   return (
@@ -76,10 +90,31 @@ function Pokemons() {
           onChange={handleSearch}
           fullWidth
           variant="outlined"
-          margin="dense"
+          margin="normal"
           size="small"
         />
-        <PokemonList pokemons={currentPokemons} />
+        <Grid container mt={2}>
+          <Grid item xs={8} mr={3}>
+            <PokemonList pokemons={currentPokemons} />
+          </Grid>
+          <Grid item xs={3.7}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6">Filter by Type</Typography>
+                {['Grass', 'Fire', 'Water', 'Electric', 'Fighting'].map((type) => (
+                  <Chip
+                    key={type}
+                    label={type}
+                    clickable
+                    color={selectedTypes.includes(type) ? 'primary' : 'default'}
+                    onClick={() => handleTypeSelect(type)}
+                    style={{ margin: '4px' }}
+                  />
+                ))}
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
         <Grid container justifyContent="center" mt={3}>
           <Pagination
             count={Math.ceil(filteredPokemons.length / itemsPerPage)}
