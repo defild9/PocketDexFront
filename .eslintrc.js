@@ -24,7 +24,9 @@ module.exports = {
   rules: {
     "react/react-in-jsx-scope": "off",
     "linebreak-style": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "no-underscore-dangle": "off",
+    "no-unused-vars": "off"
   },
   "ignorePatterns": [
     ".eslintrc.js",
