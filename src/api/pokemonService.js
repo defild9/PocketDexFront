@@ -1,9 +1,13 @@
 import apiInstance from './api';
 
-const getAllPokemons = () => apiInstance.get('/pokemons')
+export const getAllPokemons = () => apiInstance.get('/pokemons')
   .then((response) => response.data.pokemons)
   .catch((error) => {
     throw error;
   });
 
-export default getAllPokemons;
+export const getPokemon = ({ id }) => apiInstance.get(`/pokemons/${id}`)
+  .then((responce) => responce.data.pokemon)
+  .catch((error) => {
+    throw error;
+  });
