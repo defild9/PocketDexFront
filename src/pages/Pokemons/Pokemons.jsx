@@ -4,7 +4,7 @@ import {
   Typography, CardContent, Chip,
 } from '@mui/material';
 import PokemonList from '../../components/PokemonList';
-import getAllPokemons from '../../api/pokemonService';
+import { getAllPokemons } from '../../api/pokemonService';
 import './Pokemons.css';
 
 function Pokemons() {
