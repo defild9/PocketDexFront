@@ -5,9 +5,10 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, Chip } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export default function PokemonCard({
-  name, pokemonImage, description, type,
+  id, name, pokemonImage, description, type,
 }) {
   const getTypeColor = (typeName) => {
     const typeColors = {
@@ -21,31 +22,33 @@ export default function PokemonCard({
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="140"
-          image={pokemonImage}
-          alt={name}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {description}
-          </Typography>
-          <div>
-            {type.map((typeName, index) => (
-              <Chip
-                key={index}
-                label={typeName}
-                color={getTypeColor(typeName)}
-              />
-            ))}
-          </div>
-        </CardContent>
-      </CardActionArea>
+      <Link to={`/pokemons/${id}`}>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            height="140"
+            image={pokemonImage}
+            alt={name}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {description}
+            </Typography>
+            <div>
+              {type.map((typeName, index) => (
+                <Chip
+                  key={index}
+                  label={typeName}
+                  color={getTypeColor(typeName)}
+                />
+              ))}
+            </div>
+          </CardContent>
+        </CardActionArea>
+      </Link>
     </Card>
   );
 }
