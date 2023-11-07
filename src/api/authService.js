@@ -7,7 +7,7 @@ const registerUser = ({ email, username, password }) => {
     password,
   };
 
-  return apiInstance.post('/register', userData)
+  return apiInstance.post('/auth/register', userData)
     .then((response) => {
       if (response.status === 200) {
         return response.data;
@@ -18,3 +18,5 @@ const registerUser = ({ email, username, password }) => {
       throw error;
     });
 };
+
+export default registerUser;
