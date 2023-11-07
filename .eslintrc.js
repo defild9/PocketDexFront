@@ -26,7 +26,8 @@ module.exports = {
     "linebreak-style": "off",
     "react/prop-types": "off",
     "no-underscore-dangle": "off",
-    "no-unused-vars": "off"
+    "no-unused-vars": "off",
+    "react/jsx-props-no-spreading": "off"
   },
   "ignorePatterns": [
     ".eslintrc.js",
