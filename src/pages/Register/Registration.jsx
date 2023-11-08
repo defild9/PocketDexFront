@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import registerUser from '../../api/authService';
+import { registerUser } from '../../api/authService';
 import './Registration.css';
 
 function Registration() {
