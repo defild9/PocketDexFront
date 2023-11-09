@@ -1,31 +1,30 @@
-import React from 'react';
-import {
-  Button, Container, TextField, Typography, Paper, Grid, Box,
-} from '@mui/material';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../../api/authService';
-import './Registration.css';
+import {
+  Container, Box, Paper, Typography, Grid, TextField, Button, Alert,
+} from '@mui/material';
+import { loginUser } from '../../api/authService';
 
-function Registration() {
-  const navigate = useNavigate();
+function Login() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    const { email, username, password } = data;
+  const [loginError, setLoginError] = useState(null);
 
-    registerUser({ email, username, password })
-      .then(() => {
-        navigate('/');
-        alert('You have successfully registered!');
-      })
-      .catch((error) => {
-        console.error('Registration Error:', error);
-      });
+  const onSubmit = async (data) => {
+    try {
+      const { email, password } = data;
+      const response = await loginUser({ email, password });
+
+      if (response) {
+        localStorage.setItem('token', response.token);
+      }
+    } catch (error) {
+      setLoginError(error.message);
+    }
   };
 
   return (
@@ -39,24 +38,10 @@ function Registration() {
       >
         <Paper elevation={3} style={{ padding: '20px' }}>
           <Typography variant="h4" component="h1" gutterBottom>
-            Registration
+            Login
           </Typography>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  {...register('username', {
-                    required: 'Username is required',
-                    minLength: {
-                      value: 4,
-                      message: 'Username should be at least 4 characters',
-                    },
-                  })}
-                  label="Username"
-                  fullWidth
-                />
-                {errors.username && <p className="error">{errors.username.message}</p>}
-              </Grid>
               <Grid item xs={12}>
                 <TextField
                   {...register('email', {
@@ -75,10 +60,6 @@ function Registration() {
                 <TextField
                   {...register('password', {
                     required: 'Password is required',
-                    minLength: {
-                      value: 8,
-                      message: 'Password should be at least 8 characters',
-                    },
                   })}
                   label="Password"
                   fullWidth
@@ -87,6 +68,12 @@ function Registration() {
                 {errors.password && <p className="error">{errors.password.message}</p>}
               </Grid>
             </Grid>
+            {loginError
+              && (
+              <Box mt={1}>
+                <Alert severity="error">{loginError}</Alert>
+              </Box>
+              )}
             <Button
               variant="contained"
               color="primary"
@@ -94,7 +81,7 @@ function Registration() {
               type="submit"
               style={{ marginTop: '20px' }}
             >
-              Sign up
+              Login
             </Button>
           </form>
         </Paper>
@@ -103,4 +90,4 @@ function Registration() {
   );
 }
 
-export default Registration;
+export default Login;

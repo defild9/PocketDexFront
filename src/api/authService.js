@@ -1,6 +1,6 @@
 import apiInstance from './api';
 
-const registerUser = ({ email, username, password }) => {
+export const registerUser = ({ email, username, password }) => {
   const userData = {
     username,
     email,
@@ -18,5 +18,24 @@ const registerUser = ({ email, username, password }) => {
       throw error;
     });
 };
+export const loginUser = ({ email, password }) => {
+  const userData = {
+    email,
+    password,
+  };
 
-export default registerUser;
+  return apiInstance.post('/auth/login', userData)
+    .then((response) => {
+      if (response.status === 200) {
+        return response.data;
+      }
+      throw new Error('Failed to authorize');
+    })
+    .catch((error) => {
+      if (error.response && (error.response.status === 500 || error.response.status === 404)) {
+        throw new Error(error.response.data.message);
+      } else if (error.response && error.response.status === 400) {
+        throw new Error(error.response.data.message);
+      }
+    });
+};
