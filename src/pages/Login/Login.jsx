@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import {
   Container, Box, Paper, Typography, Grid, TextField, Button, Alert,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../api/authService';
 
 function Login() {
@@ -11,6 +12,8 @@ function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const navigate = useNavigate();
 
   const [loginError, setLoginError] = useState(null);
 
@@ -21,6 +24,7 @@ function Login() {
 
       if (response) {
         localStorage.setItem('token', response.token);
+        navigate('/account');
       }
     } catch (error) {
       setLoginError(error.message);
