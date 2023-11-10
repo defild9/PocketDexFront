@@ -2,7 +2,7 @@ import {
   Avatar, Card, CardContent, Typography, Container, Grid, Box,
 } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import getMe from '../../api/userServive';
+import { getMe } from '../../api/userServive';
 import UserCard from '../../components/UserCard';
 import SavedPokemons from '../../components/SavedPokemons';
 
