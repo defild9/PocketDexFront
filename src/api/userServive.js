@@ -1,7 +1,7 @@
 import { getToken } from '../utils/authentication';
 import apiInstance from './api';
 
-const getMe = () => {
+export const getMe = () => {
   const token = getToken();
   return apiInstance.get('/user/me', {
     headers: {
@@ -16,4 +16,21 @@ const getMe = () => {
     });
 };
 
-export default getMe;
+export const addPokemonToFavourite = ({ idPokemon }) => {
+  const token = getToken();
+
+  const requestData = {
+    pokemonId: idPokemon,
+  };
+  return apiInstance.patch('user/addPokemonToCollection', requestData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => response.data.message)
+    .catch((error) => {
+      if (error.response && (error.response.status === 500 || error.response.status === 404)) {
+        throw new Error(error.response.data.message);
+      }
+    });
+};
