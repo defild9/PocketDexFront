@@ -2,15 +2,18 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
-  Container, Grid, Box, Typography, Card, Chip, Rating,
+  Container, Grid, Box, Typography, Card, Chip, IconButton,
 } from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { getPokemon } from '../../api/pokemonService';
 import PokemonStats from '../../components/PokemonStats';
 import PokemonEvolution from '../../components/PokemonEvolution';
+import { addPokemonToFavourite } from '../../api/userServive';
 
 function DetailPokemon() {
   const params = useParams();
   const [pokemon, setPokemon] = useState({});
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const getTypeColor = (typeName) => {
     const typeColors = {
@@ -35,9 +38,32 @@ function DetailPokemon() {
     fetchPokemonData();
   }, [params.id]);
 
+  const handleAddToFavorites = async () => {
+    try {
+      const idPokemon = params.id;
+      if (isFavorite) {
+        console.log('remove');
+      } else {
+        await addPokemonToFavourite({ idPokemon });
+      }
+      setIsFavorite((prevIsFavorite) => !prevIsFavorite);
+    } catch (error) {
+      console.error('Error handling favorites:', error);
+    }
+  };
+
   return (
     <Container className="side">
-      <Typography variant="h2" align="center">{pokemon.name}</Typography>
+      <Typography variant="h2" align="center">
+        {pokemon.name}
+        <IconButton
+          onClick={handleAddToFavorites}
+          color={isFavorite ? 'error' : 'primary'}
+          aria-label="add to favorites"
+        >
+          <FavoriteIcon />
+        </IconButton>
+      </Typography>
       <Grid container justifyContent="flex-end" mb={2} mt={2}>
         <Grid item xs={6}>
           <Box
