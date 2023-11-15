@@ -3,6 +3,7 @@ import {
   Box, Card, CardContent, Typography, Grid,
 } from '@mui/material';
 import { getPokemon } from '../api/pokemonService';
+import { removePokemonFromFavourite } from '../api/userServive';
 import PokemonCardWithFavouriteButton from './PokemonCardWithFavouriteButton';
 
 function SavedPokemons({ pokemonCollection }) {
@@ -28,6 +29,17 @@ function SavedPokemons({ pokemonCollection }) {
 
     fetchSavedPokemonData();
   }, [pokemonCollection]);
+
+  const removePokemon = (id) => {
+    removePokemonFromFavourite({ idPokemon: id })
+      .then(() => {
+        setSavedPokemons((prevSavedPokemons) => prevSavedPokemons
+          .filter((pokemon) => pokemon._id !== id));
+      })
+      .catch((error) => {
+        console.error('Error removing Pokémon:', error);
+      });
+  };
   return (
     <Box mt={2}>
       {savedPokemons.length > 0 && (
@@ -43,6 +55,7 @@ function SavedPokemons({ pokemonCollection }) {
                     id={evolvedPokemon._id}
                     name={evolvedPokemon.name}
                     pokemonImage={evolvedPokemon.pokemonImage}
+                    onRemove={removePokemon}
                   />
                 </Grid>
               ))}
