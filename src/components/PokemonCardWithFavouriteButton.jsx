@@ -5,11 +5,14 @@ import {
 import { Link } from 'react-router-dom';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-function PokemonCardWithFavouriteButton({ id, name, pokemonImage }) {
+function PokemonCardWithFavouriteButton({
+  id, name, pokemonImage, onRemove,
+}) {
   const [isFavorite, setIsFavorite] = useState(true);
 
   const handleToggleFavorite = () => {
     setIsFavorite((prevIsFavorite) => !prevIsFavorite);
+    onRemove(id);
   };
 
   return (
