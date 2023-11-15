@@ -1,7 +1,6 @@
 import './App.css';
 import { Routes, Route, Switch } from 'react-router-dom';
 import Layout from './components/Layout';
-import Home from './pages/Home';
 import Pokemons from './pages/Pokemons/Pokemons';
 import DetailPokemon from './pages/DetailPokemon/DetailPokemon';
 import Registretion from './pages/Register/Registration';
