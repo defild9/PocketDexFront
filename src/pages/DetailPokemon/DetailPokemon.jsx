@@ -8,12 +8,13 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { getPokemon } from '../../api/pokemonService';
 import PokemonStats from '../../components/PokemonStats';
 import PokemonEvolution from '../../components/PokemonEvolution';
-import { addPokemonToFavourite } from '../../api/userServive';
+import { addPokemonToFavourite, getMe, removePokemonFromFavourite } from '../../api/userServive';
 
 function DetailPokemon() {
   const params = useParams();
   const [pokemon, setPokemon] = useState({});
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const getTypeColor = (typeName) => {
     const typeColors = {
@@ -38,11 +39,30 @@ function DetailPokemon() {
     fetchPokemonData();
   }, [params.id]);
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await getMe();
+        if (userData) {
+          setIsAuthenticated(true);
+        }
+
+        const isPokemonInCollection = userData.pokemonCollection.includes(params.id);
+        setIsFavorite(isPokemonInCollection);
+      } catch (error) {
+        setIsAuthenticated(false);
+        console.error('Error:', error);
+      }
+    };
+
+    fetchUserData();
+  }, [params.id]);
+
   const handleAddToFavorites = async () => {
     try {
       const idPokemon = params.id;
       if (isFavorite) {
-        console.log('remove');
+        await removePokemonFromFavourite({ idPokemon });
       } else {
         await addPokemonToFavourite({ idPokemon });
       }
@@ -56,13 +76,15 @@ function DetailPokemon() {
     <Container className="side">
       <Typography variant="h2" align="center">
         {pokemon.name}
-        <IconButton
-          onClick={handleAddToFavorites}
-          color={isFavorite ? 'error' : 'primary'}
-          aria-label="add to favorites"
-        >
-          <FavoriteIcon />
-        </IconButton>
+        {isAuthenticated && (
+          <IconButton
+            onClick={handleAddToFavorites}
+            color={isFavorite ? 'error' : 'primary'}
+            aria-label="add to favorites"
+          >
+            <FavoriteIcon />
+          </IconButton>
+        )}
       </Typography>
       <Grid container justifyContent="flex-end" mb={2} mt={2}>
         <Grid item xs={6}>

@@ -29,7 +29,7 @@ function PokemonCardWithFavouriteButton({ id, name, pokemonImage }) {
           <Typography variant="subtitle1">{name}</Typography>
           <IconButton
             onClick={handleToggleFavorite}
-            color={isFavorite ? 'primary' : 'default'}
+            color={isFavorite ? 'error' : 'primary'}
           >
             <FavoriteIcon />
           </IconButton>
