@@ -3,7 +3,6 @@ import {
   Box, Card, CardContent, Typography, Grid,
 } from '@mui/material';
 import { getPokemon } from '../api/pokemonService';
-import PokemonEvolutionCard from './PokemonEvolutionCard';
 import PokemonCardWithFavouriteButton from './PokemonCardWithFavouriteButton';
 
 function SavedPokemons({ pokemonCollection }) {
