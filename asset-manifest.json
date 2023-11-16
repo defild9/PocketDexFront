@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/PocketDexFront/static/css/main.9ca4b427.css",
-    "main.js": "/PocketDexFront/static/js/main.b45d3fb3.js",
+    "main.js": "/PocketDexFront/static/js/main.2c0c6c38.js",
     "index.html": "/PocketDexFront/index.html",
     "main.9ca4b427.css.map": "/PocketDexFront/static/css/main.9ca4b427.css.map",
-    "main.b45d3fb3.js.map": "/PocketDexFront/static/js/main.b45d3fb3.js.map"
+    "main.2c0c6c38.js.map": "/PocketDexFront/static/js/main.2c0c6c38.js.map"
   },
   "entrypoints": [
     "static/css/main.9ca4b427.css",
-    "static/js/main.b45d3fb3.js"
+    "static/js/main.2c0c6c38.js"
   ]
 }
