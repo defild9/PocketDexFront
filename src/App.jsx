@@ -8,6 +8,7 @@ import Login from './pages/Login/Login';
 import PrivateRoute from './components/PrivateRoute';
 import Account from './pages/Account/Account';
 import NotFound from './pages/NotFound/NotFound';
+import GoogleAuthCallback from './components/GoogleAuthCallback';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             </PrivateRoute>
           )}
         />
+        <Route path="/google" element={<GoogleAuthCallback />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>
