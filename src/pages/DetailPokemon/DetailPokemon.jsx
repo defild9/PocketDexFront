@@ -73,10 +73,11 @@ function DetailPokemon() {
   };
 
   return (
-    <Container className="side">
-      <Typography variant="h2" align="center">
-        {pokemon.name}
-        {isAuthenticated && (
+    <Box>
+      <Container className="side">
+        <Typography variant="h2" align="center">
+          {pokemon.name}
+          {isAuthenticated && (
           <IconButton
             onClick={handleAddToFavorites}
             color={isFavorite ? 'error' : 'primary'}
@@ -84,64 +85,64 @@ function DetailPokemon() {
           >
             <FavoriteIcon />
           </IconButton>
-        )}
-      </Typography>
-      <Grid container justifyContent="flex-end" mb={2} mt={2}>
-        <Grid item xs={6}>
-          <Box
-            component="img"
-            sx={{
-              height: 450,
-              width: 450,
-              maxHeight: { xs: 350, md: 400 },
-              maxWidth: { xs: 350, md: 400 },
-            }}
-            alt={pokemon.name}
-            src={pokemon.pokemonImage}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <Typography variant="subtitle1">{pokemon.description}</Typography>
-          <Box mt={2}>
-            <Card>
-              <Box p={3}>
-                <Grid container>
-                  <Grid item xs={6}>
-                    <Typography variant="h6">Height</Typography>
-                    <Typography>{pokemon.height}</Typography>
+          )}
+        </Typography>
+        <Grid container spacing={2} justifyContent="center">
+          <Grid item xs={12} sm={6}>
+            <Box
+              component="img"
+              sx={{
+                height: 450,
+                width: 450,
+                maxHeight: { xs: 350, md: 400 },
+                maxWidth: { xs: 350, md: 400 },
+              }}
+              alt={pokemon.name}
+              src={pokemon.pokemonImage}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography variant="subtitle1">{pokemon.description}</Typography>
+            <Box mt={2}>
+              <Card>
+                <Box p={3}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={6} sm={6}>
+                      <Typography variant="h6">Height</Typography>
+                      <Typography>{pokemon.height}</Typography>
+                    </Grid>
+                    <Grid item xs={6} sm={6}>
+                      <Typography variant="h6">Weight</Typography>
+                      <Typography>{pokemon.weight}</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="h6">Abilities</Typography>
+                      {pokemon.abilities && pokemon.abilities.map((ability, index) => (
+                        <Typography key={index} variant="body2">{ability}</Typography>
+                      ))}
+                    </Grid>
                   </Grid>
-                  <Grid item xs={6}>
-                    <Typography variant="h6">Weight</Typography>
-                    <Typography>{pokemon.weight}</Typography>
-                  </Grid>
-                  <Box>
-                    <Typography variant="h6">Abilities</Typography>
-                    {pokemon.abilities && pokemon.abilities.map((ability, index) => (
-                      <Typography key={index} variant="body2">{ability}</Typography>
-                    ))}
-                  </Box>
-                </Grid>
-              </Box>
-            </Card>
-          </Box>
-          <Box mt={2}>
-            <Typography variant="h6">Type</Typography>
-            {pokemon.type && pokemon.type.map((typeName, index) => (
-              <Chip
-                key={index}
-                label={typeName}
-                color={getTypeColor(typeName)}
-              />
-            ))}
-          </Box>
+                </Box>
+              </Card>
+            </Box>
+            <Box mt={2}>
+              <Typography variant="h6">Type</Typography>
+              {pokemon.type && pokemon.type.map((typeName, index) => (
+                <Chip
+                  key={index}
+                  label={typeName}
+                  color={getTypeColor(typeName)}
+                />
+              ))}
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
-      <PokemonStats stats={pokemon.stats} />
-      {pokemon.evolutions && pokemon.evolutions.length > 0 ? (
-        <PokemonEvolution evolutions={pokemon.evolutions} />
-      ) : null}
-
-    </Container>
+        <PokemonStats stats={pokemon.stats} />
+        {pokemon.evolutions && pokemon.evolutions.length > 0 ? (
+          <PokemonEvolution evolutions={pokemon.evolutions} />
+        ) : null}
+      </Container>
+    </Box>
   );
 }
 

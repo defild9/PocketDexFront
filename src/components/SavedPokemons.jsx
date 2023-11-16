@@ -50,7 +50,7 @@ function SavedPokemons({ pokemonCollection }) {
           <CardContent>
             <Grid container spacing={2}>
               {savedPokemons.map((evolvedPokemon, index) => (
-                <Grid item key={evolvedPokemon._id}>
+                <Grid item key={evolvedPokemon._id} xs={12} sm={6} md={4} lg={3}>
                   <PokemonCardWithFavouriteButton
                     id={evolvedPokemon._id}
                     name={evolvedPokemon.name}
