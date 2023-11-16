@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiInstance = axios.create({
-  baseURL: 'http://localhost:4444',
+  baseURL: 'https://pocket-dex-api.vercel.app',
 });
 
 export default apiInstance;
