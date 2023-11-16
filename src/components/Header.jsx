@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Button, Typography, Toolbar, AppBar,
 } from '@mui/material';
@@ -6,7 +6,12 @@ import { Link } from 'react-router-dom';
 import { checkIfUserIsAuthenticated } from '../utils/authentication';
 
 function Header() {
-  const isAuthenticated = checkIfUserIsAuthenticated();
+  const [isAuthenticated, setIsAuthenticated] = useState(checkIfUserIsAuthenticated());
+
+  useEffect(() => {
+    const isAuthenticatedNow = checkIfUserIsAuthenticated();
+    setIsAuthenticated(isAuthenticatedNow);
+  }, []);
   return (
     <AppBar position="static">
       <Toolbar>
