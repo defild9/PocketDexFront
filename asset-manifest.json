@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/PocketDexFront/static/css/main.9ca4b427.css",
+    "main.js": "/PocketDexFront/static/js/main.b45d3fb3.js",
+    "index.html": "/PocketDexFront/index.html",
+    "main.9ca4b427.css.map": "/PocketDexFront/static/css/main.9ca4b427.css.map",
+    "main.b45d3fb3.js.map": "/PocketDexFront/static/js/main.b45d3fb3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9ca4b427.css",
+    "static/js/main.b45d3fb3.js"
+  ]
+}
