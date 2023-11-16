@@ -94,10 +94,7 @@ function Pokemons() {
           size="small"
         />
         <Grid container mt={2}>
-          <Grid item xs={8} mr={3}>
-            <PokemonList pokemons={currentPokemons} />
-          </Grid>
-          <Grid item xs={3.7}>
+          <Grid item xs={12} md={3.7} mt={{ xs: 2, md: 0 }}>
             <Card>
               <CardContent>
                 <Typography variant="h6">Filter by Type</Typography>
@@ -113,6 +110,9 @@ function Pokemons() {
                 ))}
               </CardContent>
             </Card>
+          </Grid>
+          <Grid item xs={12} md={8} ml={3} mt={{ xs: 2, md: 0 }}>
+            <PokemonList pokemons={currentPokemons} />
           </Grid>
         </Grid>
         <Grid container justifyContent="center" mt={3}>
