@@ -30,6 +30,13 @@ function Login() {
       setLoginError(error.message);
     }
   };
+  const handleGoogleLogin = async () => {
+    try {
+      window.location.href = 'https://pocket-dex-api.vercel.app/auth/google';
+    } catch (error) {
+      console.error('Error during Google login:', error.message);
+    }
+  };
 
   return (
     <Container maxWidth="sm">
@@ -86,6 +93,16 @@ function Login() {
               style={{ marginTop: '20px' }}
             >
               Login
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              type="button"
+              style={{ marginTop: '20px' }}
+              onClick={handleGoogleLogin}
+            >
+              Sing up by Google
             </Button>
           </form>
         </Paper>
